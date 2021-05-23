@@ -1,0 +1,25 @@
+#container
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;  
+    margin: 10px;
+}
+
+
+.bontainer1
+{
+    background-color: lightcoral;
+    border: solid black 2px;
+    font-family: sans-serif;
+    padding: 10px;
+}
+
+.bontainer2
+{
+    background-color: lightgreen;
+    border: solid black 2px;
+    font-family: sans-serif;
+    padding: 10px;
+}
