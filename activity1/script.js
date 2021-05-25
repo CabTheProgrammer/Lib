@@ -17,8 +17,6 @@ function Book(title, author, pages, read)
 
 // Modifies book prototype to add a function to print book info
 Book.prototype.info = function(){
-    let statement = "Maybe it has been read";
- 
         if(this.read == true)
             statement = "has been read";
             else
@@ -27,6 +25,14 @@ Book.prototype.info = function(){
         return(   "\""+this.title +"\"" +' by '+ this.author +", "+ this.pages+ " pages" +", "+ statement);
 }
 
+Book.prototype.toggleRead = function() // Toggles the read status of the book
+{
+    if (read == true)
+        read = false;
+    else
+        read = true;   
+
+}
 // Functions for Array 
 function AddBook(Book) 
 {
@@ -48,12 +54,11 @@ function InfoDump()
 // This function clears container div
 function Clear()
 {
-    container.innerHTML = "Is this thing on?";
+    container.innerHTML = "Library has been reset, please add some books";
+    MyLibrary = []; //This empties the array that holds the books
+
 }
-//Test classes
-//  let cheese = new Book("The Ballad of Gay Tony","Rockstar Games","69",false);
-//  let butter = new Book("The Ballad of Straight Tony","Rockstar Games","70",true);
-//  let pb = new Book("Mouse Adventure","Jerry Smith","170",false);
+
  
 function BookAdd()
 {
@@ -83,21 +88,34 @@ function BookAdd()
 
 }
 
-//THis function should show all the books currently in the library and allow the user to go back tp adding more books
-function ShowAll()
+
+function ShowAll() //Make this print cards with the book infos!
 {
-    let form =  document.querySelector('#Book-Form');
-    let btn = document.querySelector('#Add');
-    btn.addEventListener('click',()=>{form.innerHTML = FORM_DATA; btn.innerHTML ="Add to Library"; btn.addEventListener('click',BookAdd)});
-    btn.removeEventListener('click',BookAdd);
-    
-    form.innerHTML = "";
-    btn.innerHTML = "Add Another Book";
-    
+    container.innerHTML = ""; //This would prevent repitition when the show library button is pressed repetitively
+    let index = 0;
+    while(index < MyLibrary.length)
+    {
+        let book = document.createElement("div");
+        
+        if(index %2 == 0)
+                book.classList.add("bontainer1");
+        else
+            book.classList.add("bontainer2");
+        
 
-    
+        book.innerHTML = "<p>Book:"+ MyLibrary[index].title+"</p> \
+        <p>Author:"+ MyLibrary[index].author+"</p>  \
+        <p>Pages:"+ MyLibrary[index].pages+"</p>\
+        <p>Has Read:"+ MyLibrary[index].read+"</p>\
+        <button id =\"ToggRead\">Toggle Read Status</button>\
+        <button id =\"RemoveBook\">Remove Book</button>";
+
+        container.appendChild(book);
+        index+=1;
+        // Generate bcontainer class
+    }
+   
 }
-
 
  reset.addEventListener('click',() => { Clear() });
  show.addEventListener('click',() => { ShowAll() }); 
