@@ -25,15 +25,34 @@ Book.prototype.info = function(){
         return(   "\""+this.title +"\"" +' by '+ this.author +", "+ this.pages+ " pages" +", "+ statement);
 }
 
-Book.prototype.toggleRead = function() // Toggles the read status of the book
-{
-    if (read == true)
-        read = false;
-    else
-        read = true;   
+// Book.prototype.toggleRead = function() // Toggles the read status of the book, strangely flips it for all objects
+// {
+//     if (this.read == true)
+//         this.read = false;
+//     else
+//         this.read = true;  
+        
+       
+// }
+// Functions for Array
 
+function toggleRead(position)
+{
+    if (MyLibrary[position].read == true)
+        MyLibrary[position].read = false;
+    else
+        MyLibrary[position].read = true;
+
+        container.innerHTML = "";
+        ShowAll();
 }
-// Functions for Array 
+function RemoveBook(position)
+{
+    MyLibrary.splice(position,1); //It works without me having to reset the pos property of the books...weird
+    console.log("A book has been removed!");
+    container.innerHTML= "";
+    ShowAll();
+}
 function AddBook(Book) 
 {
     Book.pos = MyLibrary.length;
@@ -89,7 +108,7 @@ function BookAdd()
 }
 
 
-function ShowAll() //Make this print cards with the book infos!
+function ShowAll()
 {
     container.innerHTML = ""; //This would prevent repitition when the show library button is pressed repetitively
     let index = 0;
@@ -107,8 +126,8 @@ function ShowAll() //Make this print cards with the book infos!
         <p>Author:"+ MyLibrary[index].author+"</p>  \
         <p>Pages:"+ MyLibrary[index].pages+"</p>\
         <p>Has Read:"+ MyLibrary[index].read+"</p>\
-        <button id =\"ToggRead\">Toggle Read Status</button>\
-        <button id =\"RemoveBook\">Remove Book</button>";
+        <button id =\"ToggRead\" onclick=\"toggleRead("+index+")\" >Toggle Read Status</button>\
+        <button id =\"RemoveBook\"  onclick=\"RemoveBook("+index+")\" >Remove Book</button>";
 
         container.appendChild(book);
         index+=1;
@@ -119,10 +138,6 @@ function ShowAll() //Make this print cards with the book infos!
 
  reset.addEventListener('click',() => { Clear() });
  show.addEventListener('click',() => { ShowAll() }); 
- add.addEventListener('click',BookAdd); // This is functional!!
-//  AddBook(pb);
-//  AddBook(butter);
-//  AddBook(cheese);
+ add.addEventListener('click',() =>{BookAdd();document.getElementById("OnlyForm").reset()}); // This is functional!!
 
-//  InfoDump();
 
